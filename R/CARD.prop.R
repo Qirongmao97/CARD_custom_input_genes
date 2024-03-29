@@ -131,7 +131,7 @@ return(gene2)
 #'
 #' @export
 #' 
-CARD_deconvolution <- function(CARD_object,custom_genelist=NULL){
+CARD_deconvolution <- function(CARD_object,custom_gene_list=NULL){
 ct.select = CARD_object@info_parameters$ct.select
 ct.varname = CARD_object@info_parameters$ct.varname
 sample.varname = CARD_object@info_parameters$sample.varname
