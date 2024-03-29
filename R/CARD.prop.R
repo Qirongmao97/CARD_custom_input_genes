@@ -131,7 +131,7 @@ return(gene2)
 #'
 #' @export
 #' 
-CARD_deconvolution <- function(CARD_object){
+CARD_deconvolution <- function(CARD_object,custom_genelist=NULL){
 ct.select = CARD_object@info_parameters$ct.select
 ct.varname = CARD_object@info_parameters$ct.varname
 sample.varname = CARD_object@info_parameters$sample.varname
@@ -146,7 +146,14 @@ commonGene = intersect(rownames(spatial_count),rownames(Basis))
 #### remove mitochondrial and ribosomal genes
 commonGene  = commonGene[!(commonGene %in% commonGene[grep("mt-",commonGene)])]
 cat(paste0("## Select Informative Genes! ...\n"))
-common = selectInfo(Basis,sc_eset,commonGene,ct.select,ct.varname)
+        
+######## Select the custom gene list as input if possible ##########
+if (!is.null(custom_gene_list)) {
+    common = intersect(custom_gene_list,commonGene)
+  } else {
+    common = selectInfo(Basis,sc_eset,commonGene,ct.select,ct.varname)
+  }
+        
 Xinput = spatial_count
 rm(spatial_count)
 B = Basis
